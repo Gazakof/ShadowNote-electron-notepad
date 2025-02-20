@@ -1,6 +1,8 @@
 const { dialogue } = require("electron").remote;
 const fs = require("fs");
 
+const { ipcRenderer } = require("electron");
+
 const toggleThemeBtn = document.getElementById("toggleTheme");
 const body = document.body;
 
@@ -42,6 +44,13 @@ const writeFile = (path, content) => {
     }
   });
 };
+
+ipcRenderer.on("save-before-quit", () => {
+  saveFile();
+  setTimeout(() => {
+    window.close();
+  }, 600);
+});
 
 toggleThemeBtn.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
