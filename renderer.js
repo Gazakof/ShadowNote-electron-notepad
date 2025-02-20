@@ -1,4 +1,4 @@
-const { dialogue } = require("electron").remote;
+const { dialog } = require("electron").remote;
 const fs = require("fs");
 
 const { ipcRenderer } = require("electron");
@@ -8,21 +8,21 @@ const body = document.body;
 
 let filePath = null;
 
-document.addEventListener("keydown", (event) => {
-  if (event.ctrlKey && event.key === "s") {
-    event.preventDefault();
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.key === "s") {
+    e.preventDefault();
     saveFile();
   }
 });
 
-const saveFile = () => {
+function saveFile() {
   const content = document.getElementById("editor").innerText;
   if (!filePath) {
-    dialogue
+    dialog
       .showSaveDialog({
         title: "Save File",
         defaultPath: "note.txt",
-        filters: [{ name: "ShadowNote Files", extensions: ["txt"] }],
+        filters: [{ name: "Text Files", extensions: ["txt"] }],
       })
       .then((file) => {
         if (!file.canceled) {
@@ -33,22 +33,23 @@ const saveFile = () => {
   } else {
     writeFile(filePath, content);
   }
-};
+}
 
-const writeFile = (path, content) => {
+function writeFile(path, content) {
   fs.writeFile(path, content, (err) => {
     if (err) {
       console.log("Error saving file: ", err);
     } else {
+      alert("File saved!\nPath: " + path);
       console.log("File saved: ", path);
     }
   });
-};
+}
 
 ipcRenderer.on("save-before-quit", () => {
   saveFile();
   setTimeout(() => {
-    window.close();
+    ipcRenderer.send("file-saved");
   }, 600);
 });
 
