@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shadow Note</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <input id="toggleTheme" type="checkbox" />
+    <div class="toggleBtn">
+      <label for="toggleTheme">
+        <div class="toggleBtn-container">
+          <img src="./assets/icon/sun.png" class="sun-icon" />
+          <img src="./assets/icon/moon.png" class="moon-icon" />
+        </div>
+      </label>
+    </div>
+    <div id="editor" contenteditable="true"></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>
