@@ -1,5 +1,6 @@
 const { app, BrowserWindow, dialog, ipcMain } = require("electron");
 const fs = require("fs");
+const path = require("path");
 
 let mainWindow;
 
@@ -8,10 +9,10 @@ app.whenReady().then(() => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: __dirname + "./preload.js",
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
       nodeIntegration: false,
       enableRemoteModule: false,
-      contextIsolation: true,
     },
   });
 
@@ -38,13 +39,18 @@ app.whenReady().then(() => {
 });
 
 ipcMain.on("save-file", async (e, content) => {
-  const { filePath } = await dialog.showSaveDialog({
+  const result = await dialog.showSaveDialog({
     title: "Save File",
     defaultPath: "note.txt",
     filters: [{ name: "Text Files", extensions: ["txt"] }],
   });
+
+  if (result.canceled) return;
+
+  const filePath = result.filePath;
+
   if (filePath) {
-    fs.watchFile(filePath, content, (err) => {
+    fs.writeFile(filePath, content, (err) => {
       if (!err) {
         e.reply("file-saved", filePath);
       }
