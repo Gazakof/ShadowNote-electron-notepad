@@ -15,6 +15,7 @@ app.whenReady().then(() => {
       nodeIntegration: false,
       enableRemoteModule: false,
     },
+    icon: path.join(__dirname, "assets", "icon", "logo.ico"),
   });
 
   mainWindow.loadFile("index.html");
