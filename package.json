@@ -13,5 +13,12 @@
   "devDependencies": {
     "electron": "^34.2.0",
     "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "ezra.r.sata",
+    "productName": "Shadow Note",
+    "win": {
+      "icon": "assets/icon/logo.ico"
+    }
   }
 }

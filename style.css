@@ -20,13 +20,13 @@ body {
 #editor {
   width: 95%;
   height: 90vh;
-  margin: 40px 3px;
+  margin: 40px 10px;
   padding: 2px;
   outline: none;
   overflow: auto;
   white-space: pre-wrap;
   font-family: "Poppins-regular", sans-serif;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   text-align: left;
   color: #1f1f21;
   background: transparent;
